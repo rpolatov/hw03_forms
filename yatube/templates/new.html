@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %} Добавить запись {% endblock %}
+{% block header %} <center> Добавить запись </center> {% endblock %}
+{% block content %}
+
+<center>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block">Добавить запись</button>
+  </form>
+</center>
+
+{% endblock %}

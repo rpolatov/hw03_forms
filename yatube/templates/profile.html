@@ -56,9 +56,9 @@
                             </a>
                             <!-- Ссылка на редактирование, показывается только автору записи.
                             Эту ссылку вы подключите в финальном задании спринта -->
-                            {% if user.username == user_r.username %}
+                            {% if user_r.username == user.username %}
                             <a class="btn btn-sm text-muted"
-                               href="/{user_r.username}}/{{post_id}}/edit"
+                               href="/{{user_r.username}}/{{post.pk}}/edit"
                                role="button">
                                 Редактировать
                             </a>
@@ -76,7 +76,7 @@
             <!-- Остальные посты -->
             <!-- Здесь постраничная навигация паджинатора -->
             {% if page.has_other_pages %}
-            {% include "paginator.html"%}
+                {% include "paginator.html" %}
             {% endif %}
         </div>
     </div>

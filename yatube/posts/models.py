@@ -30,7 +30,7 @@ class Post(models.Model):
                                related_name='posts', verbose_name='Автор')
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, blank=True,
                               null=True, related_name="posts",
-                              verbose_name='Сообщества')
+                              verbose_name='Группа')
 
     class Meta:
         verbose_name = 'Пост'

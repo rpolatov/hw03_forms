@@ -6,6 +6,7 @@
 
 {% for post in page %}
   <h3>
+    <a href="/{{post.author}}/" role="button"><small><strong class="d-block text-gray-dark">@{{post.author}}</strong></small></a>
     Автор: {{ post.author.get_full_name }},
     Дата публикации: {{ post.pub_date|date:"d M Y" }}
   </h3>

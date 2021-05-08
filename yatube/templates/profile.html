@@ -9,7 +9,8 @@
                 <div class="card-body">
                     <div class="h2">
                         <!-- Имя автора -->
-                        {{ user_r.get_full_name }}
+                        {{ user_r.first_name }}
+                        {{ user_r.last_name }}
                     </div>
                     <div class="h3 text-muted">
                         <!-- username автора -->
@@ -50,15 +51,15 @@
                         <div class="btn-group ">
                             <!-- Ссылка на страницу записи в атрибуте href-->
                             <a class="btn btn-sm text-muted"
-                               href="{{username}}/{{post_id}}/"
+                               href="/{{user_r.username}}/{{post.id}}/"
                                role="button">
                                 Добавить комментарий
                             </a>
                             <!-- Ссылка на редактирование, показывается только автору записи.
                             Эту ссылку вы подключите в финальном задании спринта -->
-                            {% if user_r.username == user.username %}
+                            {% if user_r == user %}
                             <a class="btn btn-sm text-muted"
-                               href="/{{user_r.username}}/{{post.pk}}/edit"
+                               href="/{{user_r.username}}/{{post.id}}/edit"
                                role="button">
                                 Редактировать
                             </a>
@@ -75,9 +76,7 @@
             <!-- Конец блока с отдельным постом -->
             <!-- Остальные посты -->
             <!-- Здесь постраничная навигация паджинатора -->
-            {% if page.has_other_pages %}
-                {% include "paginator.html" %}
-            {% endif %}
+            {% include "paginator.html" %}
         </div>
     </div>
 </main>

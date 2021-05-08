@@ -18,7 +18,7 @@ def index(request):
     return render(request, 'index.html', {'posts': latest, 'page': page})
 
 
-def group_posts(request, slug: object):
+def group_posts(request, slug):
     """Вывод на главной странице Группы"""
     group = get_object_or_404(Group,
                               slug=slug)  # Ошибка "404",при неравенстве URL`ов
@@ -61,19 +61,19 @@ def profile(request, username):
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
     return render(request, 'profile.html',
-                  {'user_r': user_r, 'page': page})
+                  {'user_r': user_r, 'page': page, 'paginator': paginator})
 
 
 def post_view(request, username, post_id):
     user_r = get_object_or_404(User, username=username)
-    post = get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, id=post_id)
     return render(request, 'post.html', {'user_r': user_r, 'post': post})
 
 
 @login_required
 def post_edit(request, username, post_id):
     """Редактирование записи"""
-    post = get_object_or_404(Post, pk=post_id, author__username=username)
+    post = get_object_or_404(Post, id=post_id, author__username=username)
     if post.author != request.user:
         return redirect('post', username=username, post_id=post_id)
     form = PostForm(request.POST or None, instance=post)
@@ -82,4 +82,5 @@ def post_edit(request, username, post_id):
         post.author = request.user
         post.save()
         return redirect('post', username=username, post_id=post_id)
-    return render(request, 'new.html', {'form': form, 'post_id': post_id})
+    return render(request, 'new.html',
+                  {'form': form, 'post_id': post_id, 'post': post})

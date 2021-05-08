@@ -2,11 +2,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm
-from .models import Group, Post
+from .models import Group, Post, User
 
 
 def index(request):
@@ -52,7 +51,6 @@ def new_post(request):
     return render(request, 'new.html', {'form': form})
 
 
-@login_required
 def profile(request, username):
     """ Профиль пользователя """
     user_r = get_object_or_404(User, username=username)
@@ -75,12 +73,10 @@ def post_edit(request, username, post_id):
     """Редактирование записи"""
     post = get_object_or_404(Post, id=post_id, author__username=username)
     if post.author != request.user:
-        return redirect('post', username=username, post_id=post_id)
-    form = PostForm(request.POST or None, instance=post)
+        return redirect('post', username, post_id)
+    form = PostForm(request.POST, instance=post)
     if form.is_valid():
-        post = form.save(commit=False)
-        post.author = request.user
-        post.save()
-        return redirect('post', username=username, post_id=post_id)
+        form.save()
+        return redirect('post', username, post_id)
     return render(request, 'new.html',
                   {'form': form, 'post_id': post_id, 'post': post})

@@ -147,3 +147,4 @@ dmypy.json
 .mypy_cache
 tests
 .github
+static

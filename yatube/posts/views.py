@@ -14,7 +14,7 @@ def index(request):
     latest = Post.objects.all()
     paginator = Paginator(latest, settings.PAGINATOR_NUMBER_OF_PAGES)
     page_number = request.GET.get('page')
-    page =  paginator.get_page(page_number)
+    page = paginator.get_page(page_number)
     return render(request, 'index.html', {'posts': latest, 'page': page})
 
 
@@ -22,7 +22,7 @@ def group_posts(request, slug):
     """Вывод на главной странице Группы."""
     group = get_object_or_404(Group, slug=slug)
     posts = group.posts.all()
-    paginator =  Paginator(posts, settings.PAGINATOR_NUMBER_OF_PAGES)
+    paginator = Paginator(posts, settings.PAGINATOR_NUMBER_OF_PAGES)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
     return render(request, 'group.html',

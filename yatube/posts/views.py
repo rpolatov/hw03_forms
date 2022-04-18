@@ -13,7 +13,7 @@ def index(request):
     """Вывод на главной странице сообщества"""
     latest = Post.objects.all()
     paginator = Paginator(latest, settings.PAGINATOR_NUMBER_OF_PAGES)
-    page_number = request.GET.get('page')
+    page_number =  request.GET.get('page')
     page =  paginator.get_page(page_number)
     return render(request, 'index.html', {'posts': latest, 'page': page})
 

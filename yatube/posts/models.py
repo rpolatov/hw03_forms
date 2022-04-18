@@ -1,5 +1,3 @@
-import textwrap
-
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -10,8 +8,7 @@ class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание',
                                    blank=True, null=True)  # Можно пустым
-    slug = models.SlugField(unique=True,
-                            verbose_name='Адрес')  # Уникальный адрес URL
+    slug = models.SlugField(unique=True, verbose_name='Адрес')
 
     class Meta:
         verbose_name = 'Сообщество'
@@ -19,7 +16,6 @@ class Group(models.Model):
         ordering = ('title',)
 
     def __str__(self):
-        """Представляем в админке"""
         return self.title
 
 
@@ -39,5 +35,4 @@ class Post(models.Model):
         ordering = ('-pub_date',)
 
     def __str__(self):
-        return (f'{textwrap.shorten(self.text, width=30, placeholder="..")}, '
-                f'{self.author}, {self.pub_date}, {self.group}')
+        return self.text[:15]

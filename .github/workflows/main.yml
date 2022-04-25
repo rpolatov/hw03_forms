@@ -1,11 +1,26 @@
-name: gitleaks
+name: Django-app workflow
 
 on: [push,pull_request]
 
+
 jobs:
-  gitleaks:
+  tests:
+    # «Раннер» — создание изолированного окружения с последней версией Ubuntu
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/pep8'
     steps:
-    - uses: actions/checkout@v1
+    # Запуск actions checkout — готового скрипта
+    # для клонирования репозитория
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      # Запуск actions setup-python — готового скрипта
+      # для развёртывания окружения Python
+      uses: actions/setup-python@v2
+      with:
+        # Выбор версии Python
+        python-version: 3.8
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master

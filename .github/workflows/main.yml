@@ -9,7 +9,6 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
     # Запуск actions checkout — готового скрипта
-      - name: Gitleaks
     # для клонирования репозитория
     - uses: actions/checkout@v2
     - name: Set up Python

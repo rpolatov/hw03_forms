@@ -20,10 +20,5 @@ jobs:
       with:
         # Выбор версии Python
         python-version: 3.8
-
-    - name: Test with flake8 and django tests
-      run: |
-        # запуск проверки проекта по flake8
-        python -m flake8
     - name: Gitleaks
       uses: zricethezav/gitleaks-action@master
